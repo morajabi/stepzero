@@ -25,6 +25,8 @@ class ListPage extends React.Component {
       console.log({ body })
       if (body && body.ok && body.ideasList) {
         this.setState({ ideasList: body.ideasList })
+      } else {
+        throw ''
       }
     } catch (err) {
       console.log(err)
@@ -32,7 +34,7 @@ class ListPage extends React.Component {
   }
 
   render() {
-    const { ideasList } = this.props
+    const { ideasList } = this.state
 
     return (
       <div>

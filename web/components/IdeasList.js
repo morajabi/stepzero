@@ -1,16 +1,23 @@
 import React from 'react'
+import Link from 'next/link'
 import styled from 'styled-components'
 
 export const IdeasList = ({ list }) => {
   return (
     <Wrapper>
-      <Heading>Your Ideas</Heading>
+      <Heading>Your Ideas ({list ? list.length : 0})</Heading>
       {list && list.length > 0
         ? list.map(idea => (
-            <ItemWrapper key={idea.id}>
-              <Title>{idea.title}</Title>
-              <Desc>{idea.description}</Desc>
-            </ItemWrapper>
+            <Link
+              key={idea.id}
+              href={`/?idea_hash=${idea.publicHash}`}
+              passHref={true}
+            >
+              <ItemWrapper>
+                <Title>{idea.title}</Title>
+                <Desc>{idea.description}</Desc>
+              </ItemWrapper>
+            </Link>
           ))
         : 'No ideas yet!'}
     </Wrapper>
@@ -26,8 +33,8 @@ const Heading = styled.h1`
   margin-bottom: 24px;
 
   font-weight: bold;
-  font-size: 16px;
-  color: #444;
+  font-size: 24px;
+  color: #b2b2b2;
 `
 const ItemWrapper = styled.a`
   padding: 12px;
@@ -47,8 +54,8 @@ const Title = styled.h3`
 `
 
 const Desc = styled.p`
-  margin-top: 6px;
   margin: 0;
+  margin-top: 8px;
   font-size: 16px;
   font-weight: normal;
   color: #999;

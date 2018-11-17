@@ -1,6 +1,5 @@
 import styled from 'styled-components'
-import Router from 'next/router'
-import { PrimaryButton } from './Button'
+import { PrimaryButton,, SecondaryButtonLink } from './Button'
 import { isLoggedIn } from '../utils/auth'
 import { saveIdea, updateIdea } from '../utils/api'
 import { getComposedIdea, saveComposedIdea } from '../utils/storage'
@@ -13,6 +12,12 @@ export class Nav extends React.Component {
     const { idea } = this.props
     return (
       <Wrapper>
+        <SecondaryButtonLink href="/list" target="_blank">
+          Go to list
+        </SecondaryButtonLink>
+
+        <Space />
+
         <Status>
           {!saving && saved ? 'Saved to cloud!' : 'We auto-save locally!'}
         </Status>
@@ -136,4 +141,9 @@ const Status = styled.p`
   margin: 0;
   margin-right: 16px;
   color: #b2b2b2;
+`
+
+const Space = styled.div`
+  margin-left: auto;
+  flex-grow: 1;
 `

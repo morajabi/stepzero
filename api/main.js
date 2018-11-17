@@ -158,18 +158,11 @@ app.get('/ideas-list', authMiddleware, async (req, res) => {
       orderBy: 'updatedAt_DESC',
     })
 
-    console.log(ideas)
-
-    if (ideas && ideas.count) {
-      console.log('heeheheh')
-      let decryptedIdeas = ideas.map(idea => decryptIdea(idea))
-      console.log(decryptedIdeas)
-      res.status(200).json({ ok: true, ideasList: decryptedIdeas })
-    } else {
-      throw ''
-    }
+    let decryptedIdeas = ideas.map(idea => decryptIdea(idea))
+    console.log(decryptedIdeas)
+    res.status(200).json({ ok: true, ideasList: decryptedIdeas })
   } catch (err) {
-    res.status(400).json({ ok: false })
+    res.status(400).json({ ok: false, msg: err })
   }
 })
 

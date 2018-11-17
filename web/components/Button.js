@@ -1,11 +1,10 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
-export const PrimaryButton = styled.button`
+const buttonStyles = css`
   border: none;
-  background: #333;
-  color: white;
+  background: none;
+
   border-radius: 3px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   font-size: 16px;
   font-weight: bold;
   font-family: --apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
@@ -27,6 +26,14 @@ export const PrimaryButton = styled.button`
   &:hover {
     box-shadow: none;
   }
+`
+
+export const PrimaryButton = styled.button`
+  ${buttonStyles};
+
+  background: #333;
+  color: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 
   &:active {
     background: black;
@@ -34,3 +41,16 @@ export const PrimaryButton = styled.button`
 `
 
 export const PrimaryButtonLink = PrimaryButton.withComponent('a')
+
+export const SecondaryButton = styled.button`
+  ${buttonStyles};
+
+  background: #f2f2f2;
+  color: #b0b0b0;
+
+  &:active {
+    background: #eee;
+  }
+`
+
+export const SecondaryButtonLink = SecondaryButton.withComponent('a')
