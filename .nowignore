@@ -1,6 +1,4 @@
 node_modules
-.log
 .next
-dist
-web/out
+out
 dist

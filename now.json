@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "alias": ["stepzero.now.sh"],
+  "builds": [
+    { "src": "/web/package.json", "use": "@now/next" },
+    { "src": "/api/*.js", "use": "@now/node" }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "/web/$1" },
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1.js"
+    }
+  ]
+}

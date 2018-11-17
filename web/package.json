@@ -17,7 +17,9 @@
   "scripts": {
     "dev": "next dev",
     "start": "next start",
-    "build": "next build && next export"
+    "build": "next build",
+    "export": "next export",
+    "now-build": "yarn build && yarn export -o dist"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",

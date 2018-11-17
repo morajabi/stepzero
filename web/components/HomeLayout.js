@@ -6,7 +6,7 @@ export const MainFlexWrapper = styled.div`
   margin-top: 14px;
 `
 
-export const Sidebar = styled.div`
+export const SidebarWrapper = styled.div`
   width: 245px;
   flex-shrink: 0;
   flex-grow: 0;
