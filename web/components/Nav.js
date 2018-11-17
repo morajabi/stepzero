@@ -93,10 +93,10 @@ export class Nav extends React.Component {
       alert('You need to login to save into cloud!')
     }
 
-    this.performUpdate()
+    this.performUpdate(true)
   }
 
-  performUpdate = () => {
+  performUpdate = (doAlert = false) => {
     const { idea } = this.props
     const editedIdea = getComposedIdea(idea.id)
 
@@ -113,9 +113,10 @@ export class Nav extends React.Component {
         })
         .catch(err => {
           this.setState({ saving: false, saved: false })
-          alert(
-            `Could not update the idea: ${err} Reach me twitter.com/morajabi`,
-          )
+          doAlert &&
+            alert(
+              `Could not update the idea: ${err} Reach me twitter.com/morajabi`,
+            )
         })
     }
   }

@@ -143,8 +143,6 @@ app.get('/idea', authMiddleware, async (req, res) => {
         .author(),
     ])
 
-    console.log(idea, author, req.userId)
-
     if (idea && (idea.isPublic || author.id === req.userId)) {
       idea = decryptIdea(idea)
       res.status(200).json(idea)
