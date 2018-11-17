@@ -8,6 +8,7 @@
     "DB_HOST": "@stepzero-db-host",
     "DB_NAME": "@stepzero-db-name",
     "POSTMARK_TOKEN": "@stepzero-postmark",
-    "JWT_SECRET": "@stepzero-jwt-secret"
+    "JWT_SECRET": "@stepzero-jwt-secret",
+    "ENCRYPT_KEY": "@stepzero-encrypt-key"
   }
 }

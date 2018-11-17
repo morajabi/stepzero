@@ -10,6 +10,7 @@ import { prisma } from './prisma/generated'
 import generateTemperaryCode from './helpers/temporaryCode'
 import sendEmail from './helpers/sendEmail'
 import { authMiddleware } from './helpers/auth'
+import { encryptString, decryptString } from './helpers/crypto'
 
 const { JWT_SECRET } = process.env
 
@@ -119,6 +120,13 @@ app.post('/login', async (req, res) => {
   }
 })
 
+const decryptIdea = idea => {
+  idea.title = decryptString(idea.title)
+  idea.description = idea.description ? decryptString(idea.description) : ''
+
+  return idea
+}
+
 // Get Idea
 app.get('/idea', async (req, res) => {
   let hash = req.query.hash && req.query.hash.trim()
@@ -127,6 +135,7 @@ app.get('/idea', async (req, res) => {
     const idea = await prisma.idea({ publicHash: hash })
 
     if (idea) {
+      idea = decryptIdea(idea)
       res.status(200).json(idea)
     } else {
       throw ''
@@ -143,8 +152,9 @@ app.post('/save-idea', authMiddleware, async (req, res) => {
     return
   }
 
-  let title = req.body.title && req.body.title.trim()
-  let description = req.body.description && req.body.description.trim()
+  let title = req.body.title && encryptString(req.body.title.trim())
+  let description =
+    req.body.description && encryptString(req.body.description.trim())
 
   if (!title) {
     res.status(400).json({ ok: false })
@@ -178,8 +188,9 @@ app.post('/update-idea', authMiddleware, async (req, res) => {
   }
 
   let id = req.body.id
-  let title = req.body.title && req.body.title.trim()
-  let description = req.body.description && req.body.description.trim()
+  let title = req.body.title && encryptString(req.body.title.trim())
+  let description =
+    req.body.description && encryptString(req.body.description.trim())
 
   if (!id || !title) {
     res.status(400).json({ ok: false, msg: 'data msiing' })

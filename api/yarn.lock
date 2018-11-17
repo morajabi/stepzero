@@ -1346,6 +1346,11 @@ terraformer@~1.0.5:
   optionalDependencies:
     "@types/geojson" "^1.0.0"
 
+tiny-crypto@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/tiny-crypto/-/tiny-crypto-1.0.3.tgz#e99a95a42dfdb164f2b833b9c59bbbab6b5b03bb"
+  integrity sha512-rN7eFN5RLQcrPK+D7+LF/V+Sk1m/xZmll4gojBoVoskvZTxyXwFzimrkz15ssG9axVBdo/hKhTeDtgH4u3dqcg==
+
 toposort-class@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/toposort-class/-/toposort-class-1.0.1.tgz#7ffd1f78c8be28c3ba45cd4e1a3f5ee193bd9988"
