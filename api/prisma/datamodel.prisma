@@ -1,0 +1,24 @@
+type User {
+  id: ID! @unique
+  email: String! @unique
+  name: String
+  firstName: String
+  lastName: String
+  ideas: [Idea!]!
+}
+
+type Idea {
+  id: ID! @unique
+  author: User!
+  title: String!
+  description: String
+  isPublic: Boolean
+  publicHash: String! @unique
+}
+
+type UserLogin {
+  id: ID! @unique
+  email: String!
+  temporaryCode: String!
+  ip: String
+}

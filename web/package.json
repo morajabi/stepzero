@@ -1,8 +1,17 @@
 {
-  "name": "@stepzero/web",
-  "version": "0.0.1",
+  "name": "stepzero",
   "private": true,
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/morajabi/stepzero.git",
+  "license": "MIT",
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "all",
+    "semi": false
+  },
   "dependencies": {
+    "isomorphic-unfetch": "^3.0.0",
     "immutable": "^4.0.0-rc.12",
     "just-debounce": "^1.0.0",
     "next": "^7.0.2",

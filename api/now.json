@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "alias": "stepzero-api.now.sh",
+  "env": {
+    "PRISMA_SECRET": "@stepzero-prisma-secret",
+    "DB_PASS": "@stepzero-db-pass",
+    "DB_USER": "@stepzero-db-user",
+    "DB_HOST": "@stepzero-db-host",
+    "DB_NAME": "@stepzero-db-name",
+    "POSTMARK_TOKEN": "@stepzero-postmark",
+    "JWT_SECRET": "@stepzero-jwt-secret"
+  }
+}

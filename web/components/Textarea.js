@@ -16,4 +16,9 @@ export const Textarea = styled(TextareaAutosize)`
   min-height: 30px;
 
   outline: none;
+  resize: none;
+
+  &:focus {
+    outline: none;
+  }
 `

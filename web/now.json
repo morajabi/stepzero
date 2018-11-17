@@ -7,15 +7,17 @@
       "use": "@now/next",
       "config": { "maxLambdaSize": "10mb" }
     },
-    { "src": "/web/static/**", "use": "@now/static" },
-    { "src": "/api/*.js", "use": "@now/node" }
+    { "src": "/web/static/**", "use": "@now/static" }
   ],
   "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1.js"
-    },
     { "src": "/(.*)", "dest": "/web/$1" },
     { "src": "/static/(.*)", "dest": "/web/static/$1" }
-  ]
+  ],
+  "env": {
+    "PRISMA_SECRET": "@stepzero-prisma-secret",
+    "DB_PASS": "@stepzero-db-pass",
+    "DB_USER": "@stepzero-db-user",
+    "DB_HOST": "@stepzero-db-host",
+    "DB_NAME": "@stepzero-db-name"
+  }
 }

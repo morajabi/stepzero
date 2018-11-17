@@ -1,0 +1,264 @@
+<!--
+  NOTE:
+  These are saved in Postmark as templates.
+  Changing this file on its own doesn't affect anything!
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title></title>
+    <!--
+      The style block is collapsed on page load to save you some scrolling.
+      Postmark automatically inlines all CSS properties for maximum email client
+      compatibility. You can just update styles here, and Postmark does the rest.
+    -->
+    <style type="text/css">
+      /* From withspectrum/spectrum */
+      *:not(br):not(tr):not(html) {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+          "Segoe UI Symbol";
+      }
+      body {
+        width: 100% !important;
+        height: 100%;
+        margin: 0;
+        line-height: 1.4;
+        font-size: 15px;
+        color: #16171a;
+        -webkit-text-size-adjust: none;
+        margin: 0;
+      }
+      /* From https://github.com/sindresorhus/modern-normalize */
+      html {
+        box-sizing: border-box;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: inherit;
+      }
+      hr {
+        height: 0;
+      }
+      abbr[title] {
+        text-decoration: underline dotted;
+      }
+      b,
+      strong {
+        font-weight: bolder;
+      }
+      code,
+      kbd,
+      samp,
+      pre {
+        font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier,
+          monospace;
+        font-size: 1em;
+      }
+      small {
+        font-size: 80%;
+      }
+      /* There global */
+      a {
+        color: currentColor;
+        text-decoration-skip: ink;
+      }
+      a.no-underline {
+        text-decoration: none;
+      }
+      p {
+        margin: 0.6em 0;
+      }
+      p.space-around {
+        margin-top: 0.9em;
+        margin-bottom: 0.9em;
+      }
+      .container {
+        max-width: 600px;
+        width: 100%;
+      }
+      .header {
+        font-size: 19px;
+        font-weight: 600;
+        margin-top: 50px;
+        margin-bottom: 25px;
+        color: #61d0ff;
+      }
+      .emoji {
+        line-height: 1.6;
+        font-size: 1.2em;
+      }
+      .footer {
+        margin-top: 25px;
+      }
+      .footer__note {
+        font-weight: 400;
+        color: #567;
+      }
+      .footer__note .emoji {
+        margin-bottom: 5px;
+        padding-left: 20px;
+        font-size: 150%;
+      }
+      .notice {
+        color: #bbb;
+        margin-top: 40px;
+        max-width: 280px;
+      }
+      /* This specific email styles */
+      .login-code {
+        background: #f0f0f2;
+        border-radius: 4px;
+        padding: 16px 22px;
+        line-height: 1.7;
+        font-size: 14px;
+        letter-spacing: 0.5px;
+        color: black;
+        font-weight: 600;
+        font-family: Monaco, Andale Mono, Courier, monospace;
+        margin: 20px 0;
+      }
+      .main strong {
+        font-weight: bold;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+
+  <body>
+    {{#preheader}}
+    <p
+      aria-hidden="true"
+      style="display: none !important; max-height: 0px; overflow: hidden;"
+    >
+      {{.}}
+    </p>
+    {{/preheader}}
+
+    <!-- Insert &zwnj;&nbsp; hack after hidden preview text -->
+    <div style="display: none; max-height: 0px; overflow: hidden;">
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+      &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+    </div>
+
+    <table
+      border="0"
+      cellpadding="30"
+      cellspacing="0"
+      height="100%"
+      width="100%"
+      class="body"
+    >
+      <tr>
+        <td align="center" valign="top">
+          <table
+            border="0"
+            cellpadding="0"
+            cellspacing="0"
+            width="600"
+            class="container"
+          >
+            <tr>
+              <td align="left" valign="top">
+                <table
+                  border="0"
+                  cellpadding="0"
+                  cellspacing="0"
+                  width="100%"
+                  class="header"
+                >
+                  <tr>
+                    <td valign="top">Login</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td align="left" valign="top">
+                <table
+                  border="0"
+                  cellpadding="0"
+                  cellspacing="0"
+                  width="100%"
+                  class="main"
+                >
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        Hey{{#firstName}} <strong>{{.}}</strong
+                        >{{/firstName}}!
+                      </p>
+
+                      <!--
+                        <p class="space-around">
+                          <a href="{{magicLink}}"
+                            >Click here to log in with this magic link 🌟</a
+                          >
+                        </p>
+                      -->
+
+                      <p>Here's your login code:</p>
+
+                      <p class="login-code">{{ loginCode }}</p>
+
+                      <p>
+                        Paste the code into the text field on Step Zero log in
+                        page to complete the process!
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td align="left" valign="top">
+                <table
+                  border="0"
+                  cellpadding="0"
+                  cellspacing="0"
+                  width="100%"
+                  class="footer"
+                >
+                  <tr>
+                    <td valign="top" class="footer__note">
+                      <p class="emoji">🙌</p>
+                      <a href="https://stepzero.now.sh" class="no-underline"
+                        >— The Step Zero Team</a
+                      >
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td valign="top">
+                      <p class="notice">
+                        <small
+                          >Not your attempt to log into your Step Zero account?
+                          Reply to this email and we'll reply.</small
+                        >
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

@@ -3,24 +3,24 @@ import { Title } from '../Title'
 import { Textarea } from '../Textarea'
 import { FormWrapper } from './style'
 import debounce from 'just-debounce'
+import { saveComposedIdea, getComposedIdea } from '../../utils/storage'
 
-const emptyState = { title: '', desc: '' }
-const COMPOSE_STORAGE = 'compose'
+const emptyState = { title: '', description: '' }
 
 export class Compose extends React.Component {
   constructor(p) {
     super(p)
-
-    if (typeof localStorage !== 'undefined') {
-      this.state = this.getPersistedState()
-    } else {
-      this.state = emptyState
-    }
+    this.state = p.idea || emptyState
   }
 
   render() {
     return (
-      <FormWrapper>
+      <FormWrapper
+        onSubmit={e => {
+          e.preventDefault()
+          return false
+        }}
+      >
         <Title
           placeholder="What's the title of idea in your mind?"
           value={this.state.title}
@@ -28,7 +28,7 @@ export class Compose extends React.Component {
         />
         <Textarea
           placeholder="How'd you describe what it does? Jot down!"
-          value={this.state.desc}
+          value={this.state.description}
           onChange={this.descChanged}
         />
       </FormWrapper>
@@ -41,17 +41,28 @@ export class Compose extends React.Component {
   }
 
   descChanged = e => {
-    this.setState({ desc: e.target.value })
+    this.setState({
+      description: e.target.value,
+    })
     this.debouncedPersist()
   }
 
   componentDidMount() {
-    this.setState(this.getPersistedState())
+    const { idea } = this.props
+
+    if (idea) {
+      this.setState({
+        title: idea.title,
+        description: idea.description,
+      })
+    } else {
+      this.setState(this.getPersistedState())
+    }
   }
 
   // Saving
   persistLocally = () => {
-    localStorage.setItem(COMPOSE_STORAGE, JSON.stringify(this.state))
+    saveComposedIdea(this.state)
   }
 
   debouncedPersist = debounce(() => {
@@ -61,15 +72,10 @@ export class Compose extends React.Component {
   }, 250)
 
   getPersistedState = () => {
-    const fromStorage = localStorage.getItem(COMPOSE_STORAGE)
+    const fromStorage = getComposedIdea()
 
     if (!fromStorage) return emptyState
 
-    try {
-      let state = JSON.parse(fromStorage)
-      return state
-    } catch (err) {
-      return emptyState
-    }
+    return fromStorage
   }
 }
