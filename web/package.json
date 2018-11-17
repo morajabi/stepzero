@@ -1,0 +1,30 @@
+{
+  "name": "@stepzero/web",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "immutable": "^4.0.0-rc.12",
+    "just-debounce": "^1.0.0",
+    "next": "^7.0.2",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "react-textarea-autosize": "^7.1.0-1",
+    "slate": "^0.44.6",
+    "slate-plain-serializer": "^0.6.30",
+    "slate-react": "^0.21.12",
+    "styled-components": "^4.1.1"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "start": "next start",
+    "build": "next build && next export"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "babel-plugin-styled-components": "^1.8.0",
+    "eslint": "^5.9.0",
+    "eslint-config-prettier": "^3.3.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "eslint-plugin-react": "^7.11.1"
+  }
+}
