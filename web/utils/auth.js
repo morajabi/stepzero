@@ -3,7 +3,10 @@ const USER_KEY = 'user'
 
 export const saveUser = user => {
   if (typeof localStorage !== 'undefined') {
-    localStorage.setItem(USER_KEY, user)
+    localStorage.setItem(
+      USER_KEY,
+      typeof user === 'object' ? JSON.stringify(user || '{}') : user,
+    )
     return user
   }
 
