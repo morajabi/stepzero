@@ -1,6 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 import Error from 'next/error'
+import { withRouter } from 'next/router'
 
 import { Compose } from '../components/Compose'
 import { Container } from '../components/Container'
@@ -17,21 +18,32 @@ import { getIdeaByHash } from '../utils/api'
 import { isLoggedIn } from '../utils/auth'
 
 class Index extends React.Component {
-  static async getInitialProps({ query }) {
-    console.log(query)
+  state = { idea: null, error: null, loading: false }
+
+  async fetch() {
+    const {
+      router: { query },
+    } = this.props
+    this.setState({ loading: true })
     if (query && query.idea_hash) {
       const idea = await getIdeaByHash(query.idea_hash).then(res => res.json())
       if (idea.ok === false) {
-        return { idea: null, error: true }
+        this.setState({ idea: null, error: true, loading: false })
+        return
       }
-      return { idea: idea }
-    }
 
-    return {}
+      this.setState({ idea: idea, loading: false })
+    } else {
+      this.setState({ loading: false })
+    }
+  }
+
+  componentDidMount() {
+    this.fetch()
   }
 
   render() {
-    const { idea, error } = this.props
+    const { idea, error, loading } = this.state
     const loggedIn = typeof window === 'undefined' ? false : isLoggedIn()
     const readonlyMode = idea && !loggedIn
 
@@ -50,17 +62,19 @@ class Index extends React.Component {
         <Container>
           <Header />
           {readonlyMode || <Nav idea={idea} />}
-          <MainFlexWrapper>
-            <Compose idea={idea} disabled={readonlyMode} />
-            <SidebarWrapper>
-              <Login />
-              {readonlyMode || <Side.HelpBoxes />}
-            </SidebarWrapper>
-          </MainFlexWrapper>
+          {loading || (
+            <MainFlexWrapper>
+              <Compose idea={idea} disabled={readonlyMode} />
+              <SidebarWrapper>
+                <Login />
+                {readonlyMode || <Side.HelpBoxes />}
+              </SidebarWrapper>
+            </MainFlexWrapper>
+          )}
         </Container>
       </div>
     )
   }
 }
 
-export default Index
+export default withRouter(Index)

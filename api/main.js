@@ -132,15 +132,20 @@ app.get('/idea', authMiddleware, async (req, res) => {
   let hash = req.query.hash && req.query.hash.trim()
 
   try {
-    let ideas = await prisma.ideas({
-      where: {
+    let [idea, author] = await Promise.all([
+      prisma.idea({
         publicHash: hash,
-        OR: [{ isPublic: true }, { author: { id: req.userId } }],
-      },
-    })
-    let idea = ideas && ideas[0]
+      }),
+      prisma
+        .idea({
+          publicHash: hash,
+        })
+        .author(),
+    ])
 
-    if (idea) {
+    console.log(idea, author, req.userId)
+
+    if (idea && (idea.isPublic || author.id === req.userId)) {
       idea = decryptIdea(idea)
       res.status(200).json(idea)
     } else {
