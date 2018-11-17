@@ -48,16 +48,19 @@ export class Compose extends React.Component {
   }
 
   componentDidMount() {
-    // const { idea } = this.props
+    const { idea } = this.props
 
-    // if (idea) {
-    //   this.setState({
-    //     title: idea.title,
-    //     description: idea.description,
-    //   })
-    // } else {
-    this.setState(this.getPersistedState())
-    // }
+    const localVersion = this.getPersistedState()
+
+    if (idea && !localVersion.title) {
+      this.setState({
+        ...idea,
+        title: idea.title,
+        description: idea.description,
+      })
+    } else {
+      this.setState(localVersion)
+    }
   }
 
   // Saving

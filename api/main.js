@@ -132,11 +132,39 @@ app.get('/idea', async (req, res) => {
   let hash = req.query.hash && req.query.hash.trim()
 
   try {
-    const idea = await prisma.idea({ publicHash: hash })
+    let idea = await prisma.idea({ publicHash: hash })
 
     if (idea) {
       idea = decryptIdea(idea)
       res.status(200).json(idea)
+    } else {
+      throw ''
+    }
+  } catch (err) {
+    res.status(400).json({ ok: false })
+  }
+})
+
+// Get Ideas List
+app.get('/ideas-list', authMiddleware, async (req, res) => {
+  if (!req.userId) {
+    res.status(400).json({ ok: false, msg: 'signin!' })
+    return
+  }
+
+  try {
+    let ideas = await prisma.ideas({
+      where: { author: { id: req.userId } },
+      orderBy: 'updatedAt_DESC',
+    })
+
+    console.log(ideas)
+
+    if (ideas && ideas.count) {
+      console.log('heeheheh')
+      let decryptedIdeas = ideas.map(idea => decryptIdea(idea))
+      console.log(decryptedIdeas)
+      res.status(200).json({ ok: true, ideasList: decryptedIdeas })
     } else {
       throw ''
     }

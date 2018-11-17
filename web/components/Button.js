@@ -16,6 +16,7 @@ export const PrimaryButton = styled.button`
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-decoration: none;
 
   padding-left: 18px;
   padding-right: 18px;
@@ -31,3 +32,5 @@ export const PrimaryButton = styled.button`
     background: black;
   }
 `
+
+export const PrimaryButtonLink = PrimaryButton.withComponent('a')

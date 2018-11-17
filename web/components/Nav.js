@@ -3,7 +3,7 @@ import Router from 'next/router'
 import { PrimaryButton } from './Button'
 import { isLoggedIn } from '../utils/auth'
 import { saveIdea, updateIdea } from '../utils/api'
-import { getComposedIdea } from '../utils/storage'
+import { getComposedIdea, saveComposedIdea } from '../utils/storage'
 
 export class Nav extends React.Component {
   state = { saving: false, saved: false }
@@ -49,6 +49,9 @@ export class Nav extends React.Component {
           if (savedIdea && savedIdea.publicHash) {
             // Redirect to edit
             // Router.push(`/?idea_hash=${publicHash}`)
+
+            // Clear new idea
+            saveComposedIdea({ id: 'new', title: '', description: '' })
             location.assign(`/?idea_hash=${publicHash}`)
           }
         })

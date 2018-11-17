@@ -45,6 +45,12 @@ export const getIdeaByHash = hash =>
     headers: getHeaders(),
   })
 
+export const getIdeasList = () =>
+  fetch(`${API_BASE}/ideas-list`, {
+    method: 'GET',
+    headers: getHeaders(),
+  })
+
 export const saveIdea = ({ title, description }) =>
   fetch(`${API_BASE}/save-idea`, {
     method: 'POST',
