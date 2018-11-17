@@ -34,10 +34,10 @@ export const setToken = token => {
 export const getToken = () => {
   if (typeof localStorage !== 'undefined') {
     const token = localStorage.getItem(USER_TOKEN_KEY)
-    return token || null
+    return token || false
   }
 
-  return null
+  return false
 }
 
 export const isLoggedIn = () => {

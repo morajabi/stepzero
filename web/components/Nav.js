@@ -1,7 +1,8 @@
 import styled from 'styled-components'
-import { PrimaryButton,, SecondaryButtonLink } from './Button'
+import Link from 'next/link'
+import { PrimaryButton, SecondaryButtonLink, SecondaryButton } from './Button'
 import { isLoggedIn } from '../utils/auth'
-import { saveIdea, updateIdea } from '../utils/api'
+import { saveIdea, updateIdea, updateIdeaPublicStatus } from '../utils/api'
 import { getComposedIdea, saveComposedIdea } from '../utils/storage'
 
 export class Nav extends React.Component {
@@ -10,17 +11,36 @@ export class Nav extends React.Component {
   render() {
     const { saving, saved } = this.state
     const { idea } = this.props
+
     return (
       <Wrapper>
-        <SecondaryButtonLink href="/list" target="_blank">
-          Go to list
-        </SecondaryButtonLink>
-
-        <Space />
-
         <Status>
           {!saving && saved ? 'Saved to cloud!' : 'We auto-save locally!'}
         </Status>
+
+        <Link href="/list" passHref>
+          <SecondaryButtonLink>Go to list</SecondaryButtonLink>
+        </Link>
+
+        {idea ? (
+          idea.isPublic ? (
+            <>
+              <Space />
+              <SecondaryButton onClick={this.privateClicked}>
+                Make Private
+              </SecondaryButton>
+            </>
+          ) : (
+            <>
+              <Space />
+              <SecondaryButton onClick={this.shareClicked}>
+                Make Shareable
+              </SecondaryButton>
+            </>
+          )
+        ) : null}
+
+        <Space />
 
         {saving ? (
           <PrimaryButton>Saving...</PrimaryButton>
@@ -126,6 +146,45 @@ export class Nav extends React.Component {
   componentWillUnmount() {
     this.interval && clearInterval(this.interval)
   }
+
+  privateClicked = () => {
+    console.log(this.props.idea)
+
+    updateIdeaPublicStatus({ id: this.props.idea.id, isPublic: false })
+      .then(res => res.json())
+      .then(body => {
+        console.log(body)
+        if (body.ok) {
+          location.reload()
+        } else {
+          throw ''
+        }
+        // TODO: change it with a better update
+      })
+      .catch(err => {
+        alert(
+          `Could not perform update: ${err} try again or ping me at twitter.com/morajabi`,
+        )
+      })
+  }
+
+  shareClicked = () => {
+    updateIdeaPublicStatus({ id: this.props.idea.id, isPublic: true })
+      .then(res => res.json())
+      .then(body => {
+        if (body.ok) {
+          location.reload()
+        } else {
+          throw ''
+        }
+        // TODO: change it with a better update
+      })
+      .catch(err => {
+        alert(
+          `Could not perform update: ${err} try again or ping me at twitter.com/morajabi`,
+        )
+      })
+  }
 }
 
 const Wrapper = styled.nav`
@@ -144,6 +203,9 @@ const Status = styled.p`
 `
 
 const Space = styled.div`
-  margin-left: auto;
-  flex-grow: 1;
+  /* margin-left: auto;
+  flex-grow: 1; */
+
+  width: 15px;
+  height: 15px;
 `

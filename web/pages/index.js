@@ -1,20 +1,29 @@
 import React from 'react'
 import Head from 'next/head'
+import Error from 'next/error'
 
 import { Compose } from '../components/Compose'
 import { Container } from '../components/Container'
-import { MainFlexWrapper, SidebarWrapper } from '../components/HomeLayout'
+import {
+  MainFlexWrapper,
+  SidebarWrapper,
+  ReadonlyWrapper,
+} from '../components/HomeLayout'
 import { Header } from '../components/Header'
 import { Nav } from '../components/Nav'
 import * as Side from '../components/Sidebars'
 import { Login } from '../components/Login'
 import { getIdeaByHash } from '../utils/api'
+import { isLoggedIn } from '../utils/auth'
 
 class Index extends React.Component {
   static async getInitialProps({ query }) {
     console.log(query)
     if (query && query.idea_hash) {
       const idea = await getIdeaByHash(query.idea_hash).then(res => res.json())
+      if (idea.ok === false) {
+        return { idea: null, error: true }
+      }
       return { idea: idea }
     }
 
@@ -22,22 +31,30 @@ class Index extends React.Component {
   }
 
   render() {
-    const { idea } = this.props
+    const { idea, error } = this.props
+    const loggedIn = typeof window === 'undefined' ? false : isLoggedIn()
+    const readonlyMode = idea && !loggedIn
+
+    if (error) {
+      return <Error statusCode={404} />
+    }
 
     return (
       <div>
         <Head>
-          <title>Step Zero</title>
+          <title>
+            {readonlyMode ? 'View an Idea' : 'Write an Idea'} - Step Zero
+          </title>
         </Head>
 
         <Container>
           <Header />
-          <Nav idea={idea} />
+          {readonlyMode || <Nav idea={idea} />}
           <MainFlexWrapper>
-            <Compose idea={idea} />
+            <Compose idea={idea} disabled={readonlyMode} />
             <SidebarWrapper>
               <Login />
-              <Side.HelpBoxes />
+              {readonlyMode || <Side.HelpBoxes />}
             </SidebarWrapper>
           </MainFlexWrapper>
         </Container>

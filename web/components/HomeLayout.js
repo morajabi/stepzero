@@ -12,3 +12,10 @@ export const SidebarWrapper = styled.div`
   flex-grow: 0;
   margin-left: 36px;
 `
+
+export const ReadonlyWrapper = styled.div`
+  max-width: 640px;
+  flex-shrink: 0;
+  flex-grow: 0;
+  margin-top: 36px;
+`

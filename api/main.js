@@ -128,17 +128,23 @@ const decryptIdea = idea => {
 }
 
 // Get Idea
-app.get('/idea', async (req, res) => {
+app.get('/idea', authMiddleware, async (req, res) => {
   let hash = req.query.hash && req.query.hash.trim()
 
   try {
-    let idea = await prisma.idea({ publicHash: hash })
+    let ideas = await prisma.ideas({
+      where: {
+        publicHash: hash,
+        OR: [{ isPublic: true }, { author: { id: req.userId } }],
+      },
+    })
+    let idea = ideas && ideas[0]
 
     if (idea) {
       idea = decryptIdea(idea)
       res.status(200).json(idea)
     } else {
-      throw ''
+      return res.status(404).json({ ok: false })
     }
   } catch (err) {
     res.status(400).json({ ok: false })
@@ -159,7 +165,6 @@ app.get('/ideas-list', authMiddleware, async (req, res) => {
     })
 
     let decryptedIdeas = ideas.map(idea => decryptIdea(idea))
-    console.log(decryptedIdeas)
     res.status(200).json({ ok: true, ideasList: decryptedIdeas })
   } catch (err) {
     res.status(400).json({ ok: false, msg: err })
@@ -237,6 +242,41 @@ app.post('/update-idea', authMiddleware, async (req, res) => {
     }
   } catch (err) {
     res.status(400).json({ ok: false })
+  }
+})
+
+// Update idea public shareablity
+app.post('/update-idea-public-status', authMiddleware, async (req, res) => {
+  if (!req.userId) {
+    res.status(400).json({ ok: false, msg: 'signin!' })
+    return
+  }
+
+  let id = req.body.id
+  let isPublic = req.body.isPublic
+
+  if (typeof isPublic === 'undefined' || !id) {
+    res.status(400).json({ ok: false, msg: 'data missing' })
+    return
+  }
+
+  try {
+    const ideas = await prisma.updateManyIdeas({
+      where: { id, author: { id: req.userId } },
+      data: {
+        isPublic,
+      },
+    })
+
+    console.log(ideas)
+
+    if (ideas.count && ideas.count > 0) {
+      res.status(200).json({ ok: true })
+    } else {
+      throw ''
+    }
+  } catch (err) {
+    res.status(400).json({ ok: false, msg: err })
   }
 })
 

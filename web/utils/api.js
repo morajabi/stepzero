@@ -1,6 +1,6 @@
 let fetch
 if (typeof window === 'undefined') {
-  fetch = require('isomorphic-unfetch')
+  fetch = require('node-fetch')
 } else {
   fetch = window.fetch
 }
@@ -63,4 +63,11 @@ export const updateIdea = ({ id, title, description }) =>
     method: 'POST',
     headers: getHeaders(),
     body: JSON.stringify({ id, title, description }),
+  })
+
+export const updateIdeaPublicStatus = ({ id, isPublic }) =>
+  fetch(`${API_BASE}/update-idea-public-status`, {
+    method: 'POST',
+    headers: getHeaders(),
+    body: JSON.stringify({ id, isPublic }),
   })

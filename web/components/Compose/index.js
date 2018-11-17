@@ -14,6 +14,7 @@ export class Compose extends React.Component {
   }
 
   render() {
+    const { disabled } = this.props
     return (
       <FormWrapper
         onSubmit={e => {
@@ -25,11 +26,13 @@ export class Compose extends React.Component {
           placeholder="What's the title of idea in your mind?"
           value={this.state.title}
           onChange={this.titleChanged}
+          readOnly={disabled}
         />
         <Textarea
           placeholder="How'd you describe what it does? Jot down!"
           value={this.state.description}
           onChange={this.descChanged}
+          readOnly={disabled}
         />
       </FormWrapper>
     )
