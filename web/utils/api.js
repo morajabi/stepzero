@@ -1,4 +1,10 @@
-import 'isomorphic-unfetch'
+let fetch
+if (typeof window === 'undefined') {
+  fetch = require('isomorphic-unfetch')
+} else {
+  fetch = window.fetch
+}
+
 import { getToken } from './auth'
 
 const API_BASE =

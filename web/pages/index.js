@@ -24,8 +24,6 @@ class Index extends React.Component {
   render() {
     const { idea } = this.props
 
-    console.log({ idea })
-
     return (
       <div>
         <Head>

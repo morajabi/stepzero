@@ -46,9 +46,11 @@ export class Nav extends React.Component {
           // Set loading to false
           this.setState({ saving: false, saved: true })
 
-          // Redirect to edit
-          // Router.push(`/?idea_hash=${publicHash}`)
-          location.assign(`/?idea_hash=${publicHash}`)
+          if (savedIdea && savedIdea.publicHash) {
+            // Redirect to edit
+            // Router.push(`/?idea_hash=${publicHash}`)
+            location.assign(`/?idea_hash=${publicHash}`)
+          }
         })
         .catch(err => {
           this.setState({ saving: false, saved: false })
@@ -63,8 +65,12 @@ export class Nav extends React.Component {
       alert('You need to login to save into cloud!')
     }
 
+    this.performUpdate()
+  }
+
+  performUpdate = () => {
     const { idea } = this.props
-    const editedIdea = getComposedIdea()
+    const editedIdea = getComposedIdea(idea.id)
 
     this.setState({ saving: true })
 
@@ -84,6 +90,20 @@ export class Nav extends React.Component {
           )
         })
     }
+  }
+
+  interval = null
+
+  componentDidMount() {
+    this.interval = setInterval(() => {
+      if (isLoggedIn()) {
+        this.performUpdate()
+      }
+    }, 1000 * 35)
+  }
+
+  componentWillUnmount() {
+    this.interval && clearInterval(this.interval)
   }
 }
 

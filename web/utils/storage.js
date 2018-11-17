@@ -1,8 +1,10 @@
 const COMPOSE_STORAGE = 'compose'
 
-export const getComposedIdea = () => {
+export const getComposedIdea = ideaId => {
   if (typeof localStorage !== 'undefined') {
-    const fromStorage = localStorage.getItem(COMPOSE_STORAGE)
+    const fromStorage = localStorage.getItem(
+      `${COMPOSE_STORAGE}.${ideaId || 'new'}`,
+    )
 
     if (!fromStorage) {
       return null
@@ -19,6 +21,7 @@ export const getComposedIdea = () => {
 
 export const saveComposedIdea = idea => {
   if (typeof localStorage !== 'undefined') {
-    localStorage.setItem(COMPOSE_STORAGE, JSON.stringify(idea))
+    let ideaId = idea.id || 'new'
+    localStorage.setItem(`${COMPOSE_STORAGE}.${ideaId}`, JSON.stringify(idea))
   }
 }

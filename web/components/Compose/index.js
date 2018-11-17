@@ -48,21 +48,23 @@ export class Compose extends React.Component {
   }
 
   componentDidMount() {
-    const { idea } = this.props
+    // const { idea } = this.props
 
-    if (idea) {
-      this.setState({
-        title: idea.title,
-        description: idea.description,
-      })
-    } else {
-      this.setState(this.getPersistedState())
-    }
+    // if (idea) {
+    //   this.setState({
+    //     title: idea.title,
+    //     description: idea.description,
+    //   })
+    // } else {
+    this.setState(this.getPersistedState())
+    // }
   }
 
   // Saving
   persistLocally = () => {
-    saveComposedIdea(this.state)
+    const { idea } = this.props
+    const id = (idea && idea.id) || 'new'
+    saveComposedIdea({ ...this.state, id })
   }
 
   debouncedPersist = debounce(() => {
@@ -72,7 +74,10 @@ export class Compose extends React.Component {
   }, 250)
 
   getPersistedState = () => {
-    const fromStorage = getComposedIdea()
+    const { idea } = this.props
+    const id = (idea && idea.id) || 'new'
+
+    const fromStorage = getComposedIdea(id)
 
     if (!fromStorage) return emptyState
 
