@@ -26,8 +26,8 @@ export const Item = styled.div`
   font-weight: normal;
   line-height: normal;
   font-size: 14px;
-  line-height: 18px;
-  margin-bottom: 12px;
+  line-height: 1.45;
+  margin-bottom: 9px;
   padding-left: 18px;
   color: #696969;
 
@@ -38,7 +38,18 @@ export const Item = styled.div`
     height: 6px;
     background: #cfcfcf;
     position: absolute;
-    top: 6px;
+    top: 7px;
     left: 0;
+  }
+`
+
+export const LinkItem = styled(Item.withComponent('a'))`
+  text-decoration: none;
+  display: block;
+
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+    color: #333;
   }
 `

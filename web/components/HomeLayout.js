@@ -10,4 +10,5 @@ export const SidebarWrapper = styled.div`
   width: 245px;
   flex-shrink: 0;
   flex-grow: 0;
+  margin-left: 36px;
 `
