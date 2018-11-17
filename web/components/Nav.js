@@ -94,12 +94,25 @@ export class Nav extends React.Component {
 
   interval = null
 
-  componentDidMount() {
+  startAutoUpdate = () => {
+    this.interval && clearInterval(this.interval)
     this.interval = setInterval(() => {
       if (isLoggedIn()) {
         this.performUpdate()
       }
     }, 1000 * 35)
+  }
+
+  componentDidUpdate() {
+    if (this.props.idea && this.props.idea.id) {
+      this.startAutoUpdate()
+    }
+  }
+
+  componentDidMount() {
+    if (this.props.idea && this.props.idea.id) {
+      this.startAutoUpdate()
+    }
   }
 
   componentWillUnmount() {
