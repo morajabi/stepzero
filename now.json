@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "alias": ["stepzero.now.sh"],
+  "alias": ["stepzero.xyz", "stepzero.now.sh"],
   "builds": [
     {
       "src": "/web/package.json",
@@ -11,6 +11,7 @@
   ],
   "routes": [
     { "src": "/(.*)", "dest": "/web/$1" },
+    { "src": "/idea/(.*)", "dest": "/web/?idea_hash=$1" },
     { "src": "/static/(.*)", "dest": "/web/static/$1" }
   ],
   "env": {
