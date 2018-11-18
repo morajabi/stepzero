@@ -27,6 +27,10 @@ export default class MyDocument extends Document {
             name="viewport"
             content="width=device-width, initial-scale=1.0"
           />
+          <meta
+            name="google-site-verification"
+            content="CGAFDQPWM2rnvSHxJBcdX9USGrvR7sg8tF2zhPoq3Bg"
+          />
           <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
           <link
             href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700"

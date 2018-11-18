@@ -3,16 +3,15 @@
   "alias": ["stepzero.xyz", "stepzero.now.sh"],
   "builds": [
     {
-      "src": "/web/package.json",
-      "use": "@now/next",
+      "src": "/package.json",
+      "use": "@now/static-build",
       "config": { "maxLambdaSize": "10mb" }
     },
-    { "src": "/web/static/**", "use": "@now/static" }
+    { "src": "/static/**", "use": "@now/static" }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "/web/$1" },
-    { "src": "/idea/(.*)", "dest": "/web/?idea_hash=$1" },
-    { "src": "/static/(.*)", "dest": "/web/static/$1" }
+    { "src": "/(.*)", "dest": "/$1" },
+    { "src": "/static/(.*)", "dest": "/static/$1" }
   ],
   "env": {
     "PRISMA_SECRET": "@stepzero-prisma-secret",

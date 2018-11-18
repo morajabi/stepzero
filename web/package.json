@@ -32,8 +32,8 @@
     "now-build": "yarn build && yarn export -o dist"
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.1",
     "babel-plugin-styled-components": "^1.8.0",
+    "babel-eslint": "^10.0.1",
     "eslint": "^5.9.0",
     "eslint-config-prettier": "^3.3.0",
     "eslint-plugin-prettier": "^3.0.0",
